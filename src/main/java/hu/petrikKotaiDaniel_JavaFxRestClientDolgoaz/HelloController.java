@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public abstract class HelloController {
     protected void warning(String headerText) {
-        alert(Alert.AlertType.WARNING, "Figyelmeztetes", headerText, "");
+        alert(Alert.AlertType.WARNING, "Figyelmeztetés", headerText, "");
     }
 
     protected void error(String headerText) {

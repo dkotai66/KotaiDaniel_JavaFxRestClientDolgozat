@@ -103,9 +103,9 @@ public class ListPeopleController extends HelloController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("update-person-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-            //UpdatePersonController controller = fxmlLoader.getController();
-            //controller.setPerson(selected);
             Stage stage = new Stage();
+            UpdatePersonController controller = fxmlLoader.getController();
+            controller.setPerson(selected);
             stage.setTitle("Update "+ selected.getName());
             stage.setScene(scene);
             stage.setOnHidden(event -> {

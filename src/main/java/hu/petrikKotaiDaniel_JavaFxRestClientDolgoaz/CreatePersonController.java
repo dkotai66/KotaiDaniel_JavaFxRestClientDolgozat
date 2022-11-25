@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 
-public class CreatePersonController extends HelloController {
+public class CreatePersonController extends HelloController{
 
     @FXML
     private int id;
@@ -40,28 +40,41 @@ public class CreatePersonController extends HelloController {
         int age = ageField.getValue();
         int height = heightField.getValue();
         if (name.isEmpty()) {
-            warning("Név kötelező");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Név szükséges");
+            alert.showAndWait();
+            warning("Név szükséges");
             return;
         }
         if (email.isEmpty()) {
-            warning("Email kötelező");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Email szükséges");
+            alert.showAndWait();
+            warning("Email szükséges");
             return;
         }
         Person newPerson = new Person(name, email, age, height, id);
         Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = converter.toJson(newPerson);
+        Response response = null;
         try {
-            Response response = RequestHandler.post(HelloApplication.BASE_URL, json);
+            response = RequestHandler.post(HelloApplication.BASE_URL, json);
             if (response.getResponseCode() == 201) {
                 nameField.setText("");
                 emailField.setText("");
                 ageField.getValueFactory().setValue(15);
                 heightField.getValueFactory().setValue(150);
             } else {
-                error("Hiba történt a felvétel során", response.getContent());
+                error("Hiba felvétel során", response.getContent());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Hiba felvétel során");
+                alert.showAndWait();
             }
         } catch (IOException e) {
-            error("Nem sikerült kapcsolódni a szerverhez");
+            error("Hiba kapcsolodás során", response.getContent());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Hiba felvétel során");
+            alert.showAndWait();
         }
     }
 }
