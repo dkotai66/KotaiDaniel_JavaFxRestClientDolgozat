@@ -1,8 +1,9 @@
 module com.example.kotaidaniel_javafxrestclientdolgozat {
     requires javafx.controls;
     requires javafx.fxml;
-            
-                            
-    opens com.example.kotaidaniel_javafxrestclientdolgozat to javafx.fxml;
-    exports com.example.kotaidaniel_javafxrestclientdolgozat;
+    requires com.google.gson;
+
+
+    opens hu.petrikKotaiDaniel_JavaFxRestClientDolgoaz to javafx.fxml, com.google.gson;
+    exports hu.petrikKotaiDaniel_JavaFxRestClientDolgoaz;
 }
